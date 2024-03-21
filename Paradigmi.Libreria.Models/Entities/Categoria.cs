@@ -8,7 +8,7 @@ namespace Paradigmi.Libreria.Models.Entities
 {
     public class Categoria
     {
-        public int IdCategoria { get; set; }
-        public string Nome { get; set; } = string
+        public string Nome { get; set; } = string.Empty;
+        public ICollection<Libro> Libri { get; set; } = new List<Libro>();
     }
 }
