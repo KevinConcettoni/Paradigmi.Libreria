@@ -11,9 +11,11 @@ namespace Paradigmi.Libreria.Test
 {
     public class DbTest
     {
-        public void TestDataBase()
+        public void RunDbTest()
         {
             var ctx = new MyDbContext();
+            var categoriaRepo = new CategoriaRepository(ctx);
+            var libroRepo = new LibroRepository(ctx);
 
             /*var nuovaCategoria = new Categoria()
             {
@@ -24,7 +26,9 @@ namespace Paradigmi.Libreria.Test
             //AggiungiLibro(ctx);
             //AggiungiUtente(ctx);
             //EliminaCategoria(ctx);
-            AggiungiLibroConPiuCategorie(ctx);
+            //AggiungiLibroConPiuCategorie(ctx);
+            var categorieConId = libroRepo.GetCategorie(4);
+            var libriPerCategoia = categoriaRepo.GetLibri("Romanzo");
         }
 
         private void AggiungiLibro(MyDbContext ctx)

@@ -3,6 +3,6 @@
 using Paradigmi.Libreria.Test;
 
 DbTest dbTest = new DbTest();
-dbTest.TestDataBase();
+dbTest.RunDbTest();
 Console.ReadLine();
 
