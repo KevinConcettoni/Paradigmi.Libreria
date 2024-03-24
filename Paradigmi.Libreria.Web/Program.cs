@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +9,7 @@ using Paradigmi.Libreria.Application.Services;
 using Paradigmi.Libreria.Models.Context;
 using Paradigmi.Libreria.Models.Repositories;
 using System.Text;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,14 @@ builder.Services.AddDbContext<MyDbContext>(conf =>
 {
     conf.UseSqlServer(builder.Configuration.GetConnectionString("MyDbContext"));
 });
+
+
+builder.Services.AddFluentValidationAutoValidation();
+// gli indico l'assembly dove sono presenti i validatori 
+builder.Services.AddValidatorsFromAssembly(
+    AppDomain.CurrentDomain.GetAssemblies().
+        SingleOrDefault(assembly => assembly.GetName().Name == "Paradigmi.Libreria.Application")
+    );
 
 var jwtAuthenticationOption = new JwtAuthenticationOption();
 builder.Configuration.GetSection("JwtAuthentication")
