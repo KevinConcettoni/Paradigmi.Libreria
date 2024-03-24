@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigmi.Libreria.Web", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigmi.Libreria.Models", "Paradigmi.Libreria.Models\Paradigmi.Libreria.Models.csproj", "{A8A0B825-6371-489F-8FEE-D9D5AF16A50C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigmi.Libreria.Test", "Paradigmi.Libreria.Test\Paradigmi.Libreria.Test.csproj", "{C91B77D8-9458-4A37-852D-74235168C85D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigmi.Libreria.Test", "Paradigmi.Libreria.Test\Paradigmi.Libreria.Test.csproj", "{C91B77D8-9458-4A37-852D-74235168C85D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigmi.Libreria.Application", "Paradigmi.Libreria.Application\Paradigmi.Libreria.Application.csproj", "{14AD7701-39B0-495A-8E48-9B4BAA3D1134}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{C91B77D8-9458-4A37-852D-74235168C85D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C91B77D8-9458-4A37-852D-74235168C85D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C91B77D8-9458-4A37-852D-74235168C85D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14AD7701-39B0-495A-8E48-9B4BAA3D1134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14AD7701-39B0-495A-8E48-9B4BAA3D1134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14AD7701-39B0-495A-8E48-9B4BAA3D1134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14AD7701-39B0-495A-8E48-9B4BAA3D1134}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
