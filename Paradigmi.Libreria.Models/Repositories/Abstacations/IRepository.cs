@@ -12,5 +12,6 @@ namespace Paradigmi.Libreria.Models.Repositories.Abstacations
         void Modifica<T> (T entity);
         T Get (object id);
         void Elimina (object id);
+        void SaveChanges();
     }
 }

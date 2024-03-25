@@ -20,23 +20,15 @@ namespace Paradigmi.Libreria.Models.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
+            /*if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer("data source=localhost;Initial catalog=Libreria;" +
                     "User Id=libreriaParadigmi;Password=libreriaParadigmi;TrustServerCertificate=True");
-            }
+            }*/
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Libro>()
-                .HasMany(e => e.Categorie)
-                .WithMany(e => e.Libri)
-                .UsingEntity(
-                "LibriCategorie",
-                l => l.HasOne(typeof(Categoria)).WithMany().HasForeignKey("NomeCategoria").HasPrincipalKey(nameof(Categoria.Nome)),
-                r => r.HasOne(typeof(Libro)).WithMany().HasForeignKey("IdLibro").HasPrincipalKey(nameof(Libro.IdLibro)),
-                j => j.HasKey("IdLibro", "NomeCategoria"));
             // prende tutte le classi dentro models che implementano l'interfaccia per la configurzione
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
             base.OnModelCreating(modelBuilder);

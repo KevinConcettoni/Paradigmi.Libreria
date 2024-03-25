@@ -1,6 +1,7 @@
 ﻿using Paradigmi.Libreria.Application.Abstactions.Services;
 using Paradigmi.Libreria.Models.Entities;
 using Paradigmi.Libreria.Models.Repositories;
+using Paradigmi.Libreria.Models.Repositories.Abstacations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,18 @@ namespace Paradigmi.Libreria.Application.Services
 {
     public class LibroService : ILibroService
     {
-        private readonly LibroRepository _libroRepository;
-        private readonly CategoriaRepository _categoriaRepository;
+        private readonly ILibroRepository _libroRepository;
+        private readonly ICategoriaRepository _categoriaRepository;
 
-        public LibroService(LibroRepository libroRepository, CategoriaRepository categoriaRepository)
+        public LibroService(ILibroRepository libroRepository, ICategoriaRepository categoriaRepository)
         {
             _libroRepository = libroRepository;
             _categoriaRepository = categoriaRepository;
         }
 
-        public bool AggiungiLibro(string nome, string autore, string editore, DateTime data, HashSet<string> categorie)
+        public bool AggiungiLibro(string nome, string autore, string editore, DateTime data, HashSet<Categoria> categorie)
         {
-            var categorieCollection = GetCategorie(categorie);
-            Libro libro = new Libro(nome, autore, data, editore, categorieCollection);
+            Libro libro = new Libro(nome, autore, data, editore, categorie);
             _libroRepository.Aggiungi(libro);
             _libroRepository.SaveChanges();
             return true;
@@ -45,9 +45,8 @@ namespace Paradigmi.Libreria.Application.Services
             return _libroRepository.GetLibri(nome, autore, editore, data, categoria);
         }
 
-        public bool ModificaLibro(int id, string nome, string autore, string editore, DateTime data, HashSet<string> categorie)
+        public bool ModificaLibro(int id, string nome, string autore, string editore, DateTime data, HashSet<Categoria> categorie)
         {
-            var categorieCollection = GetCategorie(categorie);
             if (_libroRepository.Get(id) == null)
                 return false;
             Libro libro = _libroRepository.Get(id);
@@ -55,23 +54,11 @@ namespace Paradigmi.Libreria.Application.Services
             libro.Autore = autore;
             libro.Editore = editore;    
             libro.DataPubblicazione = data;
-            libro.Categorie = categorieCollection;
+            libro.Categorie = categorie;
             _libroRepository.Modifica(libro);
             _libroRepository.SaveChanges();
             return true;
 
-        }
-
-        private HashSet<Categoria> GetCategorie(HashSet<string> categorie) 
-        {
-            var categorieCollection = new HashSet<Categoria>();
-            foreach (string cat in categorie) 
-            {
-                Categoria categoria = _categoriaRepository.Get(cat);
-                if (categoria != null)
-                    categorieCollection.Add(categoria);
-            }
-            return categorieCollection;
         }
     }
 }

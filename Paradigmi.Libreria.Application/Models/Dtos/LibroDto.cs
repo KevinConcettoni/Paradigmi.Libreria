@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Paradigmi.Libreria.Models.Entities;
+﻿using Paradigmi.Libreria.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +9,14 @@ namespace Paradigmi.Libreria.Application.Models.Dtos
 {
     public class LibroDto
     {
-        public LibroDto() { }
-        public LibroDto(Libro libro, IMapper mapper)
+        public LibroDto(Libro libro)
         {
-            mapper.Map(libro, this);
+            IdLibro = libro.IdLibro;
+            Nome = libro.Nome;
+            Autore = libro.Autore;
+            Editore = libro.Editore;
+            DataPubblicazione = libro.DataPubblicazione;
+            Categorie = libro.Categorie;
         }
         public int IdLibro { get; set; }
         public string Nome { get; set; } = string.Empty;

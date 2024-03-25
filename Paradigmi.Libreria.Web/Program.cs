@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using FluentValidation;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -11,6 +10,7 @@ using Paradigmi.Libreria.Models.Context;
 using Paradigmi.Libreria.Models.Repositories;
 using System.Text;
 using FluentValidation.AspNetCore;
+using Paradigmi.Libreria.Models.Repositories.Abstacations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +21,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUtenteService,UtenteService>();
-builder.Services.AddScoped<UtenteRepository>();
+builder.Services.AddScoped<IUtenteRepository, UtenteRepository>();
+builder.Services.AddScoped<ILibroService,LibroService>();
+builder.Services.AddScoped<ILibroRepository,LibroRepository>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddDbContext<MyDbContext>(conf =>
 {
@@ -53,12 +56,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = jwtAuthenticationOption.Issuer,
         };
     });
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment());
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

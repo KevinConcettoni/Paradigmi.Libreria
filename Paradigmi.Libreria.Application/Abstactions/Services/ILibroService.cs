@@ -9,9 +9,9 @@ namespace Paradigmi.Libreria.Application.Abstactions.Services
 {
     public  interface ILibroService
     {
-        bool AggiungiLibro(string nome, string autore, string editore, DateTime dataPubblicazione, HashSet<string> categorie);
+        bool AggiungiLibro(string nome, string autore, string editore, DateTime dataPubblicazione, HashSet<Categoria> categorie);
         bool EliminaLibro(int id);
-        public bool ModificaLibro(int id, string nome, string autore, string editore, DateTime data, HashSet<string> categorie);
-        IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? data, string categorie);
+        public bool ModificaLibro(int id, string nome, string autore, string editore, DateTime data, HashSet<Categoria> categorie);
+        IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? data, string? categoria);
     }
 }

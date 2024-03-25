@@ -3,6 +3,7 @@ using Paradigmi.Libreria.Application.Abstactions.Services;
 using Paradigmi.Libreria.Application.Options;
 using Paradigmi.Libreria.Models.Entities;
 using Paradigmi.Libreria.Models.Repositories;
+using Paradigmi.Libreria.Models.Repositories.Abstacations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace Paradigmi.Libreria.Application.Services
 {
     public class UtenteService : IUtenteService
     {
-        private readonly UtenteRepository _utenteRepository;
-        private TokenService _tokenService;
+        private readonly IUtenteRepository _utenteRepository;
+        private ITokenService _tokenService;
 
-        public UtenteService(UtenteRepository utenteRepository, IOptions<JwtAuthenticationOption> jwtAuthOptions)
+        public UtenteService(IUtenteRepository utenteRepository, IOptions<JwtAuthenticationOption> jwtAuthOptions)
         {
             _utenteRepository = utenteRepository;
             _tokenService = new TokenService(jwtAuthOptions);
