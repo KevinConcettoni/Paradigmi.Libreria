@@ -1,5 +1,6 @@
 ﻿using Paradigmi.Libreria.Models.Context;
 using Paradigmi.Libreria.Models.Entities;
+using Paradigmi.Libreria.Models.Repositories.Abstacations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Paradigmi.Libreria.Models.Repositories
 {
-    public class UtenteRepository : GenericRepository<Utente>
+    public class UtenteRepository : GenericRepository<Utente>, IUtenteRepository
     {
         public UtenteRepository(MyDbContext context) : base(context)
         {
@@ -38,7 +39,7 @@ namespace Paradigmi.Libreria.Models.Repositories
         /// <summary>
         /// Restituisce l'utente passata la mail
         /// </summary>
-        public Utente GetUtente(string email) 
+        public Utente GetUtenteByEmail(string email) 
         {
             return _ctx.Utenti.FirstOrDefault(u => u.Email.Equals(email));
         }

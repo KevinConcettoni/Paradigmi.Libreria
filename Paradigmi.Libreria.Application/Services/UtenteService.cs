@@ -25,7 +25,7 @@ namespace Paradigmi.Libreria.Application.Services
         public string Login(string email, string password)
         {
             if (_utenteRepository.ControlloCredenziali(email, password))
-                return _tokenService.CreateToken(_utenteRepository.GetUtente(email));
+                return _tokenService.CreateToken(_utenteRepository.GetUtenteByEmail(email));
             return String.Empty;
         }
 

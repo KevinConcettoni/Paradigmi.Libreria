@@ -1,4 +1,5 @@
 ﻿using Paradigmi.Libreria.Models.Context;
+using Paradigmi.Libreria.Models.Repositories.Abstacations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Paradigmi.Libreria.Models.Repositories
 {
-    public abstract class GenericRepository<T> where T : class
+    public abstract class GenericRepository<T> : IRepository<T> where T : class
     {
         protected MyDbContext _ctx;
 

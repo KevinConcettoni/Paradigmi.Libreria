@@ -1,5 +1,6 @@
 ﻿using Paradigmi.Libreria.Models.Context;
 using Paradigmi.Libreria.Models.Entities;
+using Paradigmi.Libreria.Models.Repositories.Abstacations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Paradigmi.Libreria.Models.Repositories
 {
-    public class CategoriaRepository : GenericRepository<Categoria>
+    public class CategoriaRepository : GenericRepository<Categoria>, ICategoriaRepository
     {
         public CategoriaRepository(MyDbContext context) : base(context)
         {
@@ -20,7 +21,7 @@ namespace Paradigmi.Libreria.Models.Repositories
         /// </summary>
         /// <param name="Nome">Nome della categoria</param>
         /// <returns>Lista di libri appartenenti dalla categoria</returns>
-        public List<Libro> GetLibri(string Nome)
+        public IEnumerable<Libro> GetLibri(string Nome)
         { 
             return _ctx.Libri
                 .Where(w=>w.Categorie.Any(c=>c.Nome.ToLower().Trim() == Nome.ToLower().Trim()))
