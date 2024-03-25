@@ -17,8 +17,8 @@ namespace Paradigmi.Libreria.Application.Models.Requests
             Categoria = categoria;
         }
         public string? Nome { get; set; } 
-        public string? Autore { get; set; } 
-        public string? Editore { get; set; } 
+        public string? Autore { get; set; }
+        public string? Editore { get; set; }
         public DateTime? DataPubblicazione { get; set; }
         public string? Categoria { get; set; } 
     }
