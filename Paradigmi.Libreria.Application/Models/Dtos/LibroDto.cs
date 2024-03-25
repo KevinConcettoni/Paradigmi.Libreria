@@ -1,0 +1,26 @@
+﻿using AutoMapper;
+using Paradigmi.Libreria.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Paradigmi.Libreria.Application.Models.Dtos
+{
+    public class LibroDto
+    {
+        public LibroDto() { }
+        public LibroDto(Libro libro, IMapper mapper)
+        {
+            mapper.Map(libro, this);
+        }
+        public int IdLibro { get; set; }
+        public string Nome { get; set; } = string.Empty;
+        public string Autore {  get; set; } = string.Empty;
+        public string Editore { get; set; } = string.Empty;
+        public DateTime DataPubblicazione { get; set; } 
+        public ICollection<Categoria> Categorie { get; set; } = new List<Categoria>();
+
+    }
+}
