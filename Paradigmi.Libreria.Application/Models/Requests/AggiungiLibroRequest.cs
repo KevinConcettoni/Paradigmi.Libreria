@@ -21,7 +21,7 @@ namespace Paradigmi.Libreria.Application.Models.Requests
         public string Nome { get; set; } = string.Empty;
         public string Autore { get; set; } = string.Empty;
         public string Editore { get; set; } = string.Empty;
-        public DateTime DataPubblicazione { get; set; }
+        public DateTime DataPubblicazione { get; set; } 
         public HashSet<string> Categorie { get; set; } = new HashSet<string>();
 
 

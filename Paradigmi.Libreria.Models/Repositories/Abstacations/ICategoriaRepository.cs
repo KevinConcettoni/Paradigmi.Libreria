@@ -10,5 +10,6 @@ namespace Paradigmi.Libreria.Models.Repositories.Abstacations
     public interface ICategoriaRepository : IRepository<Categoria>
     {
         IEnumerable<Libro> GetLibri(string Nome);
+        Categoria Get(string Nome);
     }
 }

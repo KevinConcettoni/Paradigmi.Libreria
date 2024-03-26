@@ -25,6 +25,7 @@ builder.Services.AddScoped<IUtenteRepository, UtenteRepository>();
 builder.Services.AddScoped<ILibroService,LibroService>();
 builder.Services.AddScoped<ILibroRepository,LibroRepository>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddDbContext<MyDbContext>(conf =>
 {

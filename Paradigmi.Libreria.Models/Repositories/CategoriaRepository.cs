@@ -1,4 +1,5 @@
-﻿using Paradigmi.Libreria.Models.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Paradigmi.Libreria.Models.Context;
 using Paradigmi.Libreria.Models.Entities;
 using Paradigmi.Libreria.Models.Repositories.Abstacations;
 using System;
@@ -26,6 +27,16 @@ namespace Paradigmi.Libreria.Models.Repositories
             return _ctx.Libri
                 .Where(w=>w.Categorie.Any(c=>c.Nome.ToLower().Trim() == Nome.ToLower().Trim()))
                 .ToList();
+        }
+
+        // faccio overload del metodo per evitare che si siano categorie con lo stesso nome ma lettere maiuscole/minuscole
+        public Categoria Get(string nome)
+        {
+            var categoria = _ctx.Categorie.FirstOrDefault(n=>n.Nome.ToLower().Trim() == nome.ToLower().Trim());
+            if (categoria != null)
+                return _ctx.Categorie.Find(categoria.Nome);
+            else
+                return null;
         }
     }
 }

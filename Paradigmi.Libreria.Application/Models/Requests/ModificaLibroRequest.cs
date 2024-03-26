@@ -9,19 +9,20 @@ namespace Paradigmi.Libreria.Application.Models.Requests
 {
     public class ModificaLibroRequest
     {
-        public ModificaLibroRequest(int id, string nome, string autore, DateTime data, HashSet<string> categorie) 
+        public ModificaLibroRequest(int id, string nome, string autore, string editore, DateTime dataPubblicazione, HashSet<string> categorie) 
         {
             Id = id;
             Nome = nome;
             Autore = autore;
-            DataPubblicazione = data;
+            Editore = editore;
+            DataPubblicazione = dataPubblicazione;
             Categorie = categorie;
         }
         public int Id { get; set; }
         public string Nome { get; set; } = string.Empty;
         public string Autore { get; set; } = string.Empty;
         public string Editore { get; set; } = string.Empty;
-        public DateTime DataPubblicazione { get; set; }
+        public DateTime DataPubblicazione { get; set; } 
         public HashSet<string> Categorie { get; set; } = new HashSet<string>();
     }
 }

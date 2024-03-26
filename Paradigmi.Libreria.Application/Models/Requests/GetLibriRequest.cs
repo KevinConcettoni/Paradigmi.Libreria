@@ -8,12 +8,12 @@ namespace Paradigmi.Libreria.Application.Models.Requests
 {
     public class GetLibriRequest
     {
-        public GetLibriRequest(string nome, string autore, string editore, DateTime data, string categoria) 
+        public GetLibriRequest(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria) 
         {
             Nome = nome;
             Autore = autore;
             Editore = editore;
-            DataPubblicazione = data;
+            DataPubblicazione = dataPubblicazione;
             Categoria = categoria;
         }
         public string? Nome { get; set; } 
