@@ -10,7 +10,7 @@ namespace Paradigmi.Libreria.Web.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class LibroController : ControllerBase
     {
         private readonly ILibroService _libroService;
@@ -59,7 +59,6 @@ namespace Paradigmi.Libreria.Web.Controllers
         {
             var libri = _libroService.GetLibri(request.Nome, request.Autore, request.Editore, request.DataPubblicazione, request.Categoria);
             return Ok(libri);
-
         }
         private HashSet<Categoria> GetCategorie(HashSet<string> categorie)
         {
