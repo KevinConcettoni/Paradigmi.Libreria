@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Paradigmi.Libreria.Application.Abstactions.Services;
 using Paradigmi.Libreria.Application.Models.Requests;
+using Paradigmi.Libreria.Application.Models.Responses;
 using Paradigmi.Libreria.Models.Entities;
 using Paradigmi.Libreria.Models.Repositories.Abstacations;
 
@@ -28,8 +29,11 @@ namespace Paradigmi.Libreria.Web.Controllers
         {
             var categorie = GetCategorie(request.Categorie);
             if (_libroService.AggiungiLibro(request.Nome, request.Autore, request.Editore, request.DataPubblicazione, categorie))
+            {
                 return Ok();
-            else return BadRequest();
+            }
+            else
+                return BadRequest();
         }
 
         [HttpPut]
@@ -40,7 +44,8 @@ namespace Paradigmi.Libreria.Web.Controllers
             if (_libroService.ModificaLibro(request.Id, request.Nome, request.Autore, request.Editore, request.DataPubblicazione,
                 categorie))
                 return Ok();
-            else return BadRequest();
+            else 
+                return BadRequest();
         }
 
         [HttpDelete]
@@ -57,7 +62,7 @@ namespace Paradigmi.Libreria.Web.Controllers
         [Route("lista")]
         public IActionResult GetLibri([FromBody] GetLibriRequest request)
         {
-            var libri = _libroService.GetLibri(request.Nome, request.Autore, request.Editore, request.DataPubblicazione, request.Categoria);
+            var libri = _libroService.GetLibri(request.Nome, request.Autore, request.Editore, null, request.Categoria);
             return Ok(libri);
         }
         private HashSet<Categoria> GetCategorie(HashSet<string> categorie)

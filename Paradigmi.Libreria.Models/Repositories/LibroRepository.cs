@@ -36,19 +36,26 @@ namespace Paradigmi.Libreria.Models.Repositories
         public IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria)
         {
             var query = _ctx.Set<Libro>().Include(c => c.Categorie).AsQueryable();
+
             if (nome != null && nome != string.Empty)
                 query = query.Where(n => n.Nome.Trim().ToLower().Contains(nome.Trim().ToLower()));
+
             if (autore != null && autore != string.Empty)
-                query = query.Where(a => a.Autore.ToLower().Trim().Contains(autore.ToLower().Trim()));    
+                query = query.Where(a => a.Autore.ToLower().Trim().Contains(autore.ToLower().Trim()));
+
             if (editore != null && editore != string.Empty)
-                query = query.Where(e => e.Autore.ToLower().Trim().Contains(editore.ToLower().Trim()));
+                query = query.Where(e => e.Editore.ToLower().Trim().Contains(editore.ToLower().Trim()));
+
             if (dataPubblicazione != null)
-                query = query.Where(d => d.DataPubblicazione.Date.Equals(dataPubblicazione.Value.Date));
+            {
+                var date = dataPubblicazione.Value.Date;
+                query = query.Where(d => d.DataPubblicazione.Date.Equals(date));
+            }
+
             if (categoria != null && categoria != string.Empty)
-                query = query.Where(c => categoria.ToLower().Trim().Contains(categoria.ToLower().Trim()));
+                query = query.Where(l => l.Categorie.Any(c => c.Nome.ToLower().Trim() == categoria.ToLower().Trim()));
+
             return query.ToList();
-
-
         }
 
     }

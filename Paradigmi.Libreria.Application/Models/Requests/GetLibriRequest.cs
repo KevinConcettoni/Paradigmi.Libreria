@@ -8,18 +8,9 @@ namespace Paradigmi.Libreria.Application.Models.Requests
 {
     public class GetLibriRequest
     {
-        public GetLibriRequest(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria) 
-        {
-            Nome = nome;
-            Autore = autore;
-            Editore = editore;
-            DataPubblicazione = dataPubblicazione;
-            Categoria = categoria;
-        }
-        public string? Nome { get; set; } 
-        public string? Autore { get; set; }
-        public string? Editore { get; set; }
-        public DateTime? DataPubblicazione { get; set; }
-        public string? Categoria { get; set; } 
+        public string? Nome { get; set; }  = string.Empty;
+        public string? Autore { get; set; } = string.Empty;
+        public string? Editore { get; set; } = string.Empty;
+        public string? Categoria { get; set; } = string.Empty;
     }
 }

@@ -12,6 +12,8 @@ using System.Text;
 using FluentValidation.AspNetCore;
 using Paradigmi.Libreria.Models.Repositories.Abstacations;
 using Microsoft.OpenApi.Models;
+using Paradigmi.Libreria.Web.Results;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,6 +72,11 @@ builder.Services.AddSwaggerGen(c =>
 });
 });
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+});
+
 var jwtAuthenticationOption = new JwtAuthenticationOption();
 builder.Configuration.GetSection("JwtAuthentication")
     .Bind(jwtAuthenticationOption);
@@ -97,6 +104,15 @@ builder.Services.AddAuthentication(options =>
                        IssuerSigningKey = securityKey
                    };
                });
+
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(opt =>
+{
+    opt.InvalidModelStateResponseFactory = (context) =>
+    {
+        return new BadRequestResultFactory(context);
+    };
+}); ;
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -110,6 +126,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllers();
 

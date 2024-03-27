@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Paradigmi.Libreria.Application.Abstactions.Services;
+using Paradigmi.Libreria.Application.Factories;
 using Paradigmi.Libreria.Application.Models.Requests;
 using Paradigmi.Libreria.Application.Models.Responses;
 
@@ -20,9 +21,15 @@ namespace Paradigmi.Libreria.Web.Controllers
         [Route("registrazione")]
         public IActionResult Registrazione([FromBody] RegistrationRequest request)
         {
-            if (_utenteService.Registrazione(request.Nome, request.Cognome, request.Email, request.Password))
-                return Ok();
-            return BadRequest();
+            var utente = request.ToEntity();
+            if (_utenteService.Registrazione(utente.Nome, utente.Cognome, utente.Email, utente.Password))
+            {
+                var response = new RegistrationResponse();
+                response.Utente = new Application.Models.Dtos.UtenteDto(utente);
+                return Ok(ResponseFactory.WithSuccess(response));   
+            }                
+            else 
+                return BadRequest();
         }
 
         [HttpPost]
@@ -32,7 +39,8 @@ namespace Paradigmi.Libreria.Web.Controllers
             var token = _utenteService.Login(request.Email, request.Password);
             if (token == null) 
                 return BadRequest();
-            else return Ok(new LoginResponse(token));
+            else 
+                return Ok(new LoginResponse(token));
         }
     }
 }
