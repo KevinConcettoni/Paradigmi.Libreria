@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Paradigmi.Libreria.Application.Abstactions.Services;
 using Paradigmi.Libreria.Application.Models.Requests;
 using Paradigmi.Libreria.Application.Models.Responses;
+using Paradigmi.Libreria.Application.Models.Dtos;
 using Paradigmi.Libreria.Models.Entities;
 using Paradigmi.Libreria.Models.Repositories.Abstacations;
+using Paradigmi.Libreria.Application.Factories;
 
 namespace Paradigmi.Libreria.Web.Controllers
 {
@@ -62,8 +64,12 @@ namespace Paradigmi.Libreria.Web.Controllers
         [Route("lista")]
         public IActionResult GetLibri([FromBody] GetLibriRequest request)
         {
-            var libri = _libroService.GetLibri(request.Nome, request.Autore, request.Editore, null, request.Categoria);
-            return Ok(libri);
+            int totalNum = 0;
+            var libri = _libroService.GetLibri(request.Nome, request.Autore, request.Editore, null, request.Categoria, request.PageSize, request.PageNum, out totalNum);
+            var response = new GetLibriResponse();
+            response.NumPagine = (int) Math.Ceiling((double) totalNum/request.PageSize);
+            response.Libri = libri.Select(l => new LibroDto(l)).ToList();
+            return Ok(ResponseFactory.WithSuccess(response));
         }
         private HashSet<Categoria> GetCategorie(HashSet<string> categorie)
         {

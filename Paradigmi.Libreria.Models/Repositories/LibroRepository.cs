@@ -33,7 +33,7 @@ namespace Paradigmi.Libreria.Models.Repositories
         /// Restituisce una collezione di libri che combaciano coi criteri indicati
         /// </summary>
         /// <returns>La lista dei libri</returns>
-        public IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria)
+        public IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria, int pageSize, int pageNum, out int totalNum)
         {
             var query = _ctx.Set<Libro>().Include(c => c.Categorie).AsQueryable();
 
@@ -55,7 +55,8 @@ namespace Paradigmi.Libreria.Models.Repositories
             if (categoria != null && categoria != string.Empty)
                 query = query.Where(l => l.Categorie.Any(c => c.Nome.ToLower().Trim() == categoria.ToLower().Trim()));
 
-            return query.ToList();
+            totalNum = query.Count();
+            return query.Skip(pageSize*pageNum).Take(pageNum).ToList();
         }
 
     }
