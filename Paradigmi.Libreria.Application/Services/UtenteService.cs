@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Paradigmi.Libreria.Application.Abstactions.Services;
 using Paradigmi.Libreria.Application.Options;
+using Paradigmi.Libreria.Application.Token;
 using Paradigmi.Libreria.Models.Entities;
 using Paradigmi.Libreria.Models.Repositories;
 using Paradigmi.Libreria.Models.Repositories.Abstacations;
@@ -15,12 +16,12 @@ namespace Paradigmi.Libreria.Application.Services
     public class UtenteService : IUtenteService
     {
         private readonly IUtenteRepository _utenteRepository;
-        private ITokenService _tokenService;
+        private TokenGenerator _tokenService;
 
         public UtenteService(IUtenteRepository utenteRepository, IOptions<JwtAuthenticationOption> jwtAuthOptions)
         {
             _utenteRepository = utenteRepository;
-            _tokenService = new TokenService(jwtAuthOptions);
+            _tokenService = new TokenGenerator(jwtAuthOptions);
         }
 
         public string Login(string email, string password)

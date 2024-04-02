@@ -11,13 +11,13 @@ using Paradigmi.Libreria.Application.Options;
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Paradigmi.Libreria.Application.Services
+namespace Paradigmi.Libreria.Application.Token
 {
-    public class TokenService : ITokenService
+    public class TokenGenerator
     {
         private readonly JwtAuthenticationOption _jwtOptions;
 
-        public TokenService (IOptions<JwtAuthenticationOption> jwtAuthOps)
+        public TokenGenerator(IOptions<JwtAuthenticationOption> jwtAuthOps)
         {
             _jwtOptions = jwtAuthOps.Value;
         }
@@ -36,7 +36,7 @@ namespace Paradigmi.Libreria.Application.Services
             var securityToken = new JwtSecurityToken(_jwtOptions.Issuer,
                 null,
                 claims,
-                expires : DateTime.Now.AddDays(1),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: credentials);
 
             var token = new JwtSecurityTokenHandler().WriteToken(securityToken);

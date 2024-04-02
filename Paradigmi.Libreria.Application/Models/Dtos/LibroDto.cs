@@ -9,14 +9,7 @@ namespace Paradigmi.Libreria.Application.Models.Dtos
 {
     public class LibroDto
     {
-        public int IdLibro { get; set; }
-        public string Nome { get; set; } = string.Empty;
-        public string Autore { get; set; } = string.Empty;
-        public string Editore { get; set; } = string.Empty;
-        public DateTime DataPubblicazione { get; set; } = DateTime.MinValue;
-        public HashSet<Categoria> Categorie { get; set; } = new HashSet<Categoria>();
-
-        public LibroDto(Libro libro) 
+        public LibroDto(Libro libro)
         {
             libro.IdLibro = IdLibro;
             libro.Nome = Nome;
@@ -25,6 +18,13 @@ namespace Paradigmi.Libreria.Application.Models.Dtos
             libro.DataPubblicazione = DataPubblicazione;
             libro.Categorie = Categorie;
         }
+        public int IdLibro { get; set; }
+        public string Nome { get; set; } = string.Empty;
+        public string Autore { get; set; } = string.Empty;
+        public string Editore { get; set; } = string.Empty;
+        public DateTime DataPubblicazione { get; set; } = DateTime.MinValue;
+        public HashSet<Categoria> Categorie { get; set; } = new HashSet<Categoria>();
+
         public Libro ToEntity(int id, string nome, string autore, string editore, DateTime data, HashSet<Categoria> categorie)
         {
             Libro libro = new Libro(nome, autore, data, editore, categorie);
