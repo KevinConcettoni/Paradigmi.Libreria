@@ -40,9 +40,9 @@ namespace Paradigmi.Libreria.Application.Services
             return false;
         }
 
-        public IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? data, string? categoria, int pageSize, int pageNum, out int totalNum)
+        public IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? data, string? categoria, int from, int num, out int totalNum)
         {
-            return _libroRepository.GetLibri(nome, autore, editore, data, categoria, pageSize, pageNum, out totalNum);
+            return _libroRepository.GetLibri(nome, autore, editore, data, categoria, from, num, out totalNum);
         }
 
         public bool ModificaLibro(int id, string nome, string autore, string editore, DateTime data, HashSet<Categoria> categorie)

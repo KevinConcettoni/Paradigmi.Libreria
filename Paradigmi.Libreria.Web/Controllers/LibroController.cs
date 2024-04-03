@@ -65,9 +65,9 @@ namespace Paradigmi.Libreria.Web.Controllers
         public IActionResult GetLibri([FromBody] GetLibriRequest request)
         {
             int totalNum = 0;
-            var libri = _libroService.GetLibri(request.Nome, request.Autore, request.Editore, null, request.Categoria, request.PageSize, request.PageNum, out totalNum);
+            var libri = _libroService.GetLibri(request.Nome, request.Autore, request.Editore, request.DataPubblicazione, request.Categoria, request.From, request.Size, out totalNum);
             var response = new GetLibriResponse();
-            response.NumPagine = (int) Math.Ceiling((double) totalNum/request.PageSize);
+            response.NumPagine = (int) Math.Ceiling((double) totalNum/request.Size);
             response.Libri = libri.Select(l => new LibroDto(l)).ToList();
             return Ok(ResponseFactory.WithSuccess(response));
         }

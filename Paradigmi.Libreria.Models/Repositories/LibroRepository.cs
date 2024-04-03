@@ -33,30 +33,27 @@ namespace Paradigmi.Libreria.Models.Repositories
         /// Restituisce una collezione di libri che combaciano coi criteri indicati
         /// </summary>
         /// <returns>La lista dei libri</returns>
-        public IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria, int pageSize, int pageNum, out int totalNum)
+        public IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria, int from, int num, out int totalNum)
         {
             var query = _ctx.Set<Libro>().Include(c => c.Categorie).AsQueryable();
-
-            if (nome != null && nome != string.Empty)
-                query = query.Where(n => n.Nome.Trim().ToLower().Contains(nome.Trim().ToLower()));
-
-            if (autore != null && autore != string.Empty)
-                query = query.Where(a => a.Autore.ToLower().Trim().Contains(autore.ToLower().Trim()));
-
-            if (editore != null && editore != string.Empty)
-                query = query.Where(e => e.Editore.ToLower().Trim().Contains(editore.ToLower().Trim()));
-
+            if (categoria != null)
+            {
+                query = query.Where(x => x.Categorie.Any(c => c.Nome.Equals(categoria)));
+            }
+            if (!string.IsNullOrEmpty(nome))
+            {
+                query = query.Where(x => x.Nome.Contains(nome));
+            }
+            if (!string.IsNullOrEmpty(autore))
+            {
+                query = query.Where(x => x.Autore.Contains(autore));
+            }
             if (dataPubblicazione != null)
             {
-                var date = dataPubblicazione.Value.Date;
-                query = query.Where(d => d.DataPubblicazione.Date.Equals(date));
+                query = query.Where(x => x.DataPubblicazione.Date.Equals(dataPubblicazione.Value.Date));
             }
-
-            if (categoria != null && categoria != string.Empty)
-                query = query.Where(l => l.Categorie.Any(c => c.Nome.ToLower().Trim() == categoria.ToLower().Trim()));
-
             totalNum = query.Count();
-            return query.Skip(pageSize*pageNum).Take(pageNum).ToList();
+            return query.ToList();//.Skip(from * num).Take(num).ToList();
         }
 
     }
