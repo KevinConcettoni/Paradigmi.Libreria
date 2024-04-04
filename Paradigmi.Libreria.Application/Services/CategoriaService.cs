@@ -30,11 +30,14 @@ namespace Paradigmi.Libreria.Application.Services
 
         public bool EliminaCategoria(string nome)
         {
-            if (_categoriaRepository.Get(nome) == null || _categoriaRepository.Get(nome).Libri.Any())
-                return false;
-            _categoriaRepository.Elimina(nome);
-            _categoriaRepository.SaveChanges();
-            return true;
+            Categoria categoria = _categoriaRepository.Get(nome);
+            if(categoria != null && _categoriaRepository.GetLibri(nome).Count() == 0)
+            {
+                _categoriaRepository.Elimina(categoria.Nome);
+                _categoriaRepository.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

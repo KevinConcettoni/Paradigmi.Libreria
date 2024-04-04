@@ -27,8 +27,9 @@ namespace Paradigmi.Libreria.Test
             //AggiungiUtente(ctx);
             //EliminaCategoria(ctx);
             //AggiungiLibroConPiuCategorie(ctx);
-            var categorieConId = libroRepo.GetCategorie(4);
+            // var categorieConId = libroRepo.GetCategorie(4);
             var libriPerCategoia = categoriaRepo.GetLibri("Romanzo");
+            Console.ReadLine();
         }
 
         private void AggiungiLibro(MyDbContext ctx)

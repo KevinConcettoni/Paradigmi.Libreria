@@ -12,6 +12,6 @@ namespace Paradigmi.Libreria.Application.Abstactions.Services
         bool AggiungiLibro(string nome, string autore, string editore, DateTime dataPubblicazione, HashSet<Categoria> categorie);
         bool EliminaLibro(int id);
         public bool ModificaLibro(int id, string nome, string autore, string editore, DateTime data, HashSet<Categoria> categorie);
-        IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? data, string? categoria, int from, int num, out int totalNum);
+        IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? data, string? categoria, int pageNum, int pageSize, out int totalNum);
     }
 }

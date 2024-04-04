@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Paradigmi.Libreria.Application.Abstactions.Services;
+using Paradigmi.Libreria.Application.Factories;
 using Paradigmi.Libreria.Application.Models.Requests;
 
 namespace Paradigmi.Libreria.Web.Controllers
@@ -25,7 +26,7 @@ namespace Paradigmi.Libreria.Web.Controllers
             if (_categoriaService.AggiungiCategoria(request.Nome))
                 return Ok();
             else 
-                return BadRequest();
+                return BadRequest(ResponseFactory.WithError("Categoria già esistente"));
         }
 
         [HttpDelete]
@@ -35,7 +36,7 @@ namespace Paradigmi.Libreria.Web.Controllers
             if (_categoriaService.EliminaCategoria(request.Nome))
                 return Ok();
             else 
-                return BadRequest();
+                return BadRequest(ResponseFactory.WithError("Categoria nulla o collegata ad un libro"));
         }
     }
 }

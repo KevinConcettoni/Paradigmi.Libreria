@@ -18,19 +18,12 @@ namespace Paradigmi.Libreria.Application.Models.Dtos
 
         public LibroDto(Libro libro)
         {
-            libro.IdLibro = IdLibro;
-            libro.Nome = Nome;
-            libro.Autore = Autore;
-            libro.Editore = Editore;
-            libro.DataPubblicazione = DataPubblicazione;
-            libro.Categorie = Categorie;
-        }
-
-        public Libro ToEntity(int id, string nome, string autore, string editore, DateTime data, HashSet<Categoria> categorie)
-        {
-            Libro libro = new Libro(nome, autore, data, editore, categorie);
-            return libro;
-
+            IdLibro = libro.IdLibro;
+            Nome = libro.Nome;
+            Autore = libro.Autore;
+            Editore = libro.Editore;
+            DataPubblicazione = libro.DataPubblicazione;
+            Categorie = libro.Categorie;
         }
     }
 }

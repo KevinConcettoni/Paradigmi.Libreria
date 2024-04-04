@@ -31,9 +31,7 @@ namespace Paradigmi.Libreria.Web.Controllers
         {
             var categorie = GetCategorie(request.Categorie);
             if (_libroService.AggiungiLibro(request.Nome, request.Autore, request.Editore, request.DataPubblicazione, categorie))
-            {
                 return Ok();
-            }
             else
                 return BadRequest();
         }

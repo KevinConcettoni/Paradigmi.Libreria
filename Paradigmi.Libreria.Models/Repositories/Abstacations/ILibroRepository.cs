@@ -10,6 +10,6 @@ namespace Paradigmi.Libreria.Models.Repositories.Abstacations
     public interface ILibroRepository : IRepository<Libro>
     {
         IEnumerable<Categoria> GetCategorie(int Id);
-        IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria, int pageSize, int pageNum, out int totalNum);
+        IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria, int pageNum, int pageSize, out int totalNum);
     }
 }

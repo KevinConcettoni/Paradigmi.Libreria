@@ -38,7 +38,7 @@ namespace Paradigmi.Libreria.Web.Controllers
         {
             var token = _utenteService.Login(request.Email, request.Password);
             if (token == null) 
-                return BadRequest();
+                return BadRequest(ResponseFactory.WithError("Credenziali errate"));
             else 
                 return Ok(new LoginResponse(token));
         }

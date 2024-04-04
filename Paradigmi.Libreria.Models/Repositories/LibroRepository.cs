@@ -33,27 +33,26 @@ namespace Paradigmi.Libreria.Models.Repositories
         /// Restituisce una collezione di libri che combaciano coi criteri indicati
         /// </summary>
         /// <returns>La lista dei libri</returns>
-        public IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria, int from, int num, out int totalNum)
+        public IEnumerable<Libro> GetLibri(string? nome, string? autore, string? editore, DateTime? dataPubblicazione, string? categoria, int pageNum, int pageSize, out int totalNum)
         {
             var query = _ctx.Set<Libro>().Include(c => c.Categorie).AsQueryable();
-            if (categoria != null)
-            {
-                query = query.Where(x => x.Categorie.Any(c => c.Nome.Equals(categoria)));
-            }
             if (!string.IsNullOrEmpty(nome))
-            {
                 query = query.Where(x => x.Nome.Contains(nome));
-            }
-            if (!string.IsNullOrEmpty(autore))
-            {
+
+            if (!string.IsNullOrEmpty(autore)) 
                 query = query.Where(x => x.Autore.Contains(autore));
-            }
+ 
             if (dataPubblicazione != null)
-            {
                 query = query.Where(x => x.DataPubblicazione.Date.Equals(dataPubblicazione.Value.Date));
-            }
+
+            if (!string.IsNullOrEmpty(editore))
+                query = query.Where(x => x.Editore.Contains(editore));
+
+            if (categoria != null)
+                query = query.Where(x => x.Categorie.Any(c => c.Nome.Equals(categoria)));
+
             totalNum = query.Count();
-            return query.ToList();//.Skip(from * num).Take(num).ToList();
+            return query.Skip(pageNum * pageSize).Take(pageSize).ToList();
         }
 
     }
