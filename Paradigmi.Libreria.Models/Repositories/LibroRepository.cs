@@ -37,19 +37,19 @@ namespace Paradigmi.Libreria.Models.Repositories
         {
             var query = _ctx.Set<Libro>().Include(c => c.Categorie).AsQueryable();
             if (!string.IsNullOrEmpty(nome))
-                query = query.Where(x => x.Nome.Contains(nome));
+                query = query.Where(x => x.Nome.ToLower().Trim().Contains(nome.ToLower().Trim()));
 
             if (!string.IsNullOrEmpty(autore)) 
-                query = query.Where(x => x.Autore.Contains(autore));
+                query = query.Where(x => x.Autore.ToLower().Trim().Contains(autore.ToLower().Trim()));
  
             if (dataPubblicazione != null)
                 query = query.Where(x => x.DataPubblicazione.Date.Equals(dataPubblicazione.Value.Date));
 
             if (!string.IsNullOrEmpty(editore))
-                query = query.Where(x => x.Editore.Contains(editore));
+                query = query.Where(x => x.Editore.ToLower().Trim().Contains(editore.ToLower().Trim()));
 
-            if (categoria != null)
-                query = query.Where(x => x.Categorie.Any(c => c.Nome.Equals(categoria)));
+            if (!string.IsNullOrEmpty(categoria))
+                query = query.Where(x => x.Categorie.Any(c => c.Nome.ToLower().Trim().Equals(categoria.ToLower().Trim())));
 
             totalNum = query.Count();
             return query.Skip(pageNum * pageSize).Take(pageSize).ToList();

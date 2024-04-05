@@ -23,9 +23,9 @@ namespace Paradigmi.Libreria.Web.Controllers
         [Route("aggiungi")]
         public IActionResult AggiungiCategoria([FromBody] AggiungiCategoriaRequest request)
         {
-            if (_categoriaService.AggiungiCategoria(request.Nome))
-                return Ok();
-            else 
+            if (_categoriaService.AggiungiCategoria(request.Nome))            
+                return Ok(ResponseFactory.WithSuccess($"Categoria {request.Nome} aggiunta con successo"));
+            else
                 return BadRequest(ResponseFactory.WithError("Categoria già esistente"));
         }
 
@@ -34,9 +34,9 @@ namespace Paradigmi.Libreria.Web.Controllers
         public IActionResult EliminaCategoria([FromBody] EliminaCategoriaRequest request)
         {
             if (_categoriaService.EliminaCategoria(request.Nome))
-                return Ok();
+                return Ok(ResponseFactory.WithSuccess($"Categoria {request.Nome} eliminata con successo"));
             else 
-                return BadRequest(ResponseFactory.WithError("Categoria nulla o collegata ad un libro"));
+                return BadRequest(ResponseFactory.WithError("Categoria nulla o associata ad un libro"));
         }
     }
 }

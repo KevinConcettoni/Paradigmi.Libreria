@@ -29,8 +29,14 @@ namespace Paradigmi.Libreria.Application.Validators
                 .WithMessage("Il campo Password non può essere nullo")
                 .NotEmpty()
                 .WithMessage("Il campo Password non può essere vuoto")
-                .MinimumLength(6)
-                .WithMessage("La password deve contenre almeno 6 caratteri");
+                .Custom((value, context) =>
+                {
+                    var regEx = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+{}\\[\\]:;<>,.?~\\\\-]).{6,}$");
+                    if (regEx.IsMatch(value) == false)
+                    {
+                        context.AddFailure("Il campo password deve essere lungo almeno 6 caratteri e deve contenere almeno un carattere maiuscolo, uno minuscolo, un numero e un carattere speciale");
+                    }
+                });
             RuleFor(m => m.Nome)
                 .NotNull()
                 .WithMessage("Il campo Nome non può essere nullo")

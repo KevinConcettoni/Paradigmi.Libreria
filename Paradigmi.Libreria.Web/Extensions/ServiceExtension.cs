@@ -15,6 +15,9 @@ namespace Paradigmi.Libreria.Web.Extensions
         public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddEndpointsApiExplorer();
+
+            #region Autenticazione
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -76,6 +79,8 @@ namespace Paradigmi.Libreria.Web.Extensions
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
             });
+
+            #endregion
 
             services.AddControllers().ConfigureApiBehaviorOptions(opt =>
             {

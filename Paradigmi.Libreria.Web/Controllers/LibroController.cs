@@ -31,7 +31,7 @@ namespace Paradigmi.Libreria.Web.Controllers
         {
             var categorie = GetCategorie(request.Categorie);
             if (_libroService.AggiungiLibro(request.Nome, request.Autore, request.Editore, request.DataPubblicazione, categorie))
-                return Ok();
+                return Ok(ResponseFactory.WithSuccess("Libro aggiunto con successo"));
             else
                 return BadRequest();
         }
@@ -43,7 +43,7 @@ namespace Paradigmi.Libreria.Web.Controllers
             var categorie = GetCategorie(request.Categorie);
             if (_libroService.ModificaLibro(request.Id, request.Nome, request.Autore, request.Editore, request.DataPubblicazione,
                 categorie))
-                return Ok();
+                return Ok(ResponseFactory.WithSuccess($"Libro con Id {request.Id} modificato con successo"));
             else 
                 return BadRequest();
         }
@@ -53,7 +53,7 @@ namespace Paradigmi.Libreria.Web.Controllers
         public IActionResult EliminaLibro([FromBody] EliminaLibroRequest request)
         {
             if (_libroService.EliminaLibro(request.Id))
-                return Ok();
+                return Ok(ResponseFactory.WithSuccess($"Libro con Id {request.Id} eliminato con successo"));
             else 
                 return BadRequest();
         }
